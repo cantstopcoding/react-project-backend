@@ -6,6 +6,7 @@ class CreateTransactions < ActiveRecord::Migration[6.0]
       t.string :kind
       t.datetime :date
       t.string :descrription
+      t.belongs_to :account, null: false, foreign_key: true
 
       t.timestamps
     end

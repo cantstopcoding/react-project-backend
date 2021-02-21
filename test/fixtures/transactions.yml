@@ -4,12 +4,14 @@ one:
   account_id: 1
   amount: 1.5
   kind: MyString
-  date: 2021-02-20 19:47:35
+  date: 2021-02-20 19:55:00
   descrription: MyString
+  account: one
 
 two:
   account_id: 1
   amount: 1.5
   kind: MyString
-  date: 2021-02-20 19:47:35
+  date: 2021-02-20 19:55:00
   descrription: MyString
+  account: two
