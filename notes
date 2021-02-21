@@ -1,0 +1,7 @@
+Account 
+has_many :transactions
+    balange:float, name:string 
+
+Transactions
+belongs_to :account 
+    account_id:integer, amount:float, kind:string, date:datetime, description:string 
