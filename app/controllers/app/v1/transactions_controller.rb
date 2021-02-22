@@ -1,4 +1,5 @@
 class Api::V1::TransactionsController < ApplicationController
+  before_action :set_account
   before_action :set_transaction, only: [:show, :update, :destroy]
 
   # GET /transactions
@@ -36,9 +37,15 @@ class Api::V1::TransactionsController < ApplicationController
   # DELETE /transactions/1
   def destroy
     @transaction.destroy
+    # it matters that it's an instance variable, video at approx. 34:20
   end
 
   private
+    
+    def set_account
+      @account = Account.find(params[:account_id])
+    end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_transaction
       @transaction = Transaction.find(params[:id])
