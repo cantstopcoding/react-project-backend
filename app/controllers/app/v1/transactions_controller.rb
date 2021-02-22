@@ -4,7 +4,7 @@ class Api::V1::TransactionsController < ApplicationController
 
   # GET /transactions
   def index
-    @transactions = Transaction.all
+    @transactions = @account.transactions
 
     render json: @transactions
   end
@@ -16,12 +16,14 @@ class Api::V1::TransactionsController < ApplicationController
 
   # POST /transactions
   def create
-    @transaction = Transaction.new(transaction_params)
+    @transaction = @account.transaction.new(transaction_params)
 
-    if @transaction.save
+    if @account.update_balance(@transaction) != 'Balance is too low.' 
+      @transaction.save
       render json: @transaction, status: :created, location: @transaction
     else
       render json: @transaction.errors, status: :unprocessable_entity
+      # render json: {error: 'Balance too low.'} => in video
     end
   end
 

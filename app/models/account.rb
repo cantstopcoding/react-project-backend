@@ -10,7 +10,7 @@ class Account < ApplicationRecord
                 self.balance -= transaction.amount
                 self.save
             else
-                return 'Balance is too low. '
+                return 'Balance is too low.'
             end
         end
     end
