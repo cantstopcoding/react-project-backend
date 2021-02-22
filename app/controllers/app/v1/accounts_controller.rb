@@ -10,6 +10,7 @@ class Api::V1::AccountsController < ApplicationController
 
   # GET /accounts/1
   def show
+    # @account = Account.find(params[:id]) => video include this code
     render json: @account
   end
 
@@ -19,8 +20,10 @@ class Api::V1::AccountsController < ApplicationController
 
     if @account.save
       render json: @account, status: :created, location: @account
+      # render json: @account => video code
     else
       render json: @account.errors, status: :unprocessable_entity
+      # render json: {error: 'Error creating account'} video code
     end
   end
 
@@ -35,6 +38,7 @@ class Api::V1::AccountsController < ApplicationController
 
   # DELETE /accounts/1
   def destroy
+    # @account = Account.find(params[:id]) => video include this code
     @account.destroy
   end
 
