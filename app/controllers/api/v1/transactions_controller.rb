@@ -20,7 +20,8 @@ class Api::V1::TransactionsController < ApplicationController
 
     if @account.update_balance(@transaction) != 'Balance is too low.' 
       @transaction.save
-      render json: @transaction, status: :created, location: @transaction
+      render json: @account
+      # render json: @transaction, status: :created, location: @transaction
     else
       render json: @transaction.errors, status: :unprocessable_entity
       # render json: {error: 'Balance too low.'} => in video
