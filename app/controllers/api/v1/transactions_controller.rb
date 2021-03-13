@@ -1,6 +1,6 @@
 class Api::V1::TransactionsController < ApplicationController
   before_action :set_account
-  before_action :set_transaction, only: [:show, :update, :destroy]
+  # before_action :set_transaction, only: [:show, :update, :destroy]
 
   # GET /transactions
   def index
@@ -16,15 +16,15 @@ class Api::V1::TransactionsController < ApplicationController
 
   # POST /transactions
   def create
-    @transaction = @account.transaction.new(transaction_params)
-
-    if @account.update_balance(@transaction) != 'Balance is too low.' 
+    @transaction = @account.transactions.new(transaction_params)
+    
+    if @account.update_balance(@transaction) != 'Balance too low.' 
       @transaction.save
       render json: @account
       # render json: @transaction, status: :created, location: @transaction
     else
-      render json: @transaction.errors, status: :unprocessable_entity
-      # render json: {error: 'Balance too low.'} => in video
+      # render json: @transaction.errors, status: :unprocessable_entity
+      render json: {error: 'Balance too low.'} #=> in video
     end
   end
 
@@ -45,14 +45,14 @@ class Api::V1::TransactionsController < ApplicationController
 
   private
     
-    def set_account
-      @account = Account.find(params[:account_id])
-    end
+  def set_account
+    @account = Account.find(params[:account_id])
+  end
 
     # Use callbacks to share common setup or constraints between actions.
-    def set_transaction
-      @transaction = Transaction.find(params[:id])
-    end
+    # def set_transaction
+    #   @transaction = Transaction.find(params[:id])
+    # end
 
     # Only allow a trusted parameter "white list" through.
     def transaction_params
