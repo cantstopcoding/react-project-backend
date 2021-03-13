@@ -2,7 +2,7 @@ class Account < ApplicationRecord
     has_many :transactions 
     validates :name, :balance, presence: true
 
-    def update_balance
+    def update_balance(transaction)
         if transaction.kind == 'deposit'
             self.balance += transaction.amount
             self.save
