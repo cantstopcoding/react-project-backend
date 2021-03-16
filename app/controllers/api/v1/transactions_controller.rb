@@ -39,7 +39,11 @@ class Api::V1::TransactionsController < ApplicationController
 
   # DELETE /transactions/1
   def destroy
+    # binding.pry 
+    @transaction = Transaction.find(params['id'])
+    @account = Account.find(@transaction.account_id)
     @transaction.destroy
+    render json: @account
     # it matters that it's an instance variable, video at approx. 34:20
   end
 
