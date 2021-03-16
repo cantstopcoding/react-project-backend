@@ -42,8 +42,12 @@ class Api::V1::TransactionsController < ApplicationController
     # binding.pry 
     @transaction = Transaction.find(params['id'])
     @account = Account.find(@transaction.account_id)
-    @transaction.destroy
-    render json: @account
+    if @account.update_balance_on_delete(@transaction)
+      @transaction.destroy
+      render json: @account
+    else
+      render json: @transaction.errors, status: :unprocessable_entity
+    end
     # it matters that it's an instance variable, video at approx. 34:20
   end
 
