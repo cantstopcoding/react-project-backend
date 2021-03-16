@@ -15,7 +15,7 @@ class Api::V1::TransactionsController < ApplicationController
   end
 
   # POST /transactions
-  def create
+  def create 
     @transaction = @account.transactions.new(transaction_params)
     
     if @account.update_balance(@transaction) != 'Balance too low.' 
