@@ -30,11 +30,14 @@ class Api::V1::AccountsController < ApplicationController
 
   # PATCH/PUT /accounts/1
   def update
-    if @account.update(account_params)
-      render json: @account
-    else
-      render json: @account.errors, status: :unprocessable_entity
-    end
+    @account.update(name: params['account']['name'])
+    @account.save
+    render json: @account
+    # if @account.update(account_params)
+    #   render json: @account
+    # else
+    #   render json: @account.errors, status: :unprocessable_entity
+    # end
   end
 
   # DELETE /accounts/1
