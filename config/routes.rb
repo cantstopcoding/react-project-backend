@@ -4,6 +4,9 @@ Rails.application.routes.draw do
       resources :accounts do 
         resources :transactions
       end
+      resources :items do 
+        resources :transactions
+      end
     end
   end
 end
