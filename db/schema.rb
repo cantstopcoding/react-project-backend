@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_18_211109) do
+ActiveRecord::Schema.define(version: 2021_02_21_012630) do
 
   create_table "accounts", force: :cascade do |t|
     t.string "name"
@@ -20,15 +20,6 @@ ActiveRecord::Schema.define(version: 2021_03_18_211109) do
   end
 
   create_table "items", force: :cascade do |t|
-    t.string "name"
-    t.string "image_url"
-    t.float "price"
-    t.string "description"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
-  create_table "transactions", force: :cascade do |t|
     t.integer "account_id", null: false
     t.integer "item_id", null: false
     t.float "amount"
@@ -37,10 +28,10 @@ ActiveRecord::Schema.define(version: 2021_03_18_211109) do
     t.string "description"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["account_id"], name: "index_transactions_on_account_id"
-    t.index ["item_id"], name: "index_transactions_on_item_id"
+    t.index ["account_id"], name: "index_items_on_account_id"
+    t.index ["item_id"], name: "index_items_on_item_id"
   end
 
-  add_foreign_key "transactions", "accounts"
-  add_foreign_key "transactions", "items"
+  add_foreign_key "items", "accounts"
+  add_foreign_key "items", "items"
 end
