@@ -2,7 +2,6 @@ class CreateItems < ActiveRecord::Migration[6.0]
   def change
     create_table :items do |t|
       t.belongs_to :account, null: false, foreign_key: true
-      t.belongs_to :item, null: false, foreign_key: true
       t.float :amount
       t.string :kind
       t.datetime :date
