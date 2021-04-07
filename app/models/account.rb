@@ -1,15 +1,14 @@
 class Account < ApplicationRecord
-    has_many :transactions 
-    has_many :items, through: :transactions 
+    has_many :items 
     validates :name, :balance, presence: true
 
-    def update_balance(transaction)
-        if transaction.kind == 'deposit'
-            self.balance += transaction.amount
+    def update_balance(item)
+        if item.kind == 'deposit'
+            self.balance += item.amount
             self.save
-        elsif transaction.kind == 'withdraw'
-            if self.balance >= transaction.amount
-                self.balance -= transaction.amount
+        elsif item.kind == 'withdraw'
+            if self.balance >= item.amount
+                self.balance -= item.amount
                 self.save
             else
                 return 'Balance too low.'
@@ -17,16 +16,16 @@ class Account < ApplicationRecord
         end
     end
 
-    def update_balance_on_delete(transaction)
-        if transaction.kind == 'deposit'
-            if self.balance >= transaction.amount
-                self.balance -= transaction.amount
+    def update_balance_on_delete(item)
+        if item.kind == 'deposit'
+            if self.balance >= item.amount
+                self.balance -= item.amount
                 self.save
             else
                 return 'Balance is too low.'
             end
-        elsif transaction.kind == 'withdraw'
-            self.balance += transaction.amount
+        elsif item.kind == 'withdraw'
+            self.balance += item.amount
             self.save
         end
     end
