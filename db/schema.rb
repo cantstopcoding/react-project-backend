@@ -21,7 +21,6 @@ ActiveRecord::Schema.define(version: 2021_02_21_012630) do
 
   create_table "items", force: :cascade do |t|
     t.integer "account_id", null: false
-    t.integer "item_id", null: false
     t.float "amount"
     t.string "kind"
     t.datetime "date"
@@ -29,9 +28,7 @@ ActiveRecord::Schema.define(version: 2021_02_21_012630) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["account_id"], name: "index_items_on_account_id"
-    t.index ["item_id"], name: "index_items_on_item_id"
   end
 
   add_foreign_key "items", "accounts"
-  add_foreign_key "items", "items"
 end
