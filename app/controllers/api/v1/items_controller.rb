@@ -39,14 +39,19 @@ class Api::V1::ItemsController < ApplicationController
   # DELETE /items/1
   def destroy
     # binding.pry
-    @item = Item.find(params["id"])
+    @item = Item.find(params['id'])
+    @item.destroy
     @account = Account.find(@item.account_id)
-    if @account.update_balance_on_delete(@item)
-      @item.destroy
-      render json: @account
-    else
-      render json: @item.errors, status: :unprocessable_entity
-    end
+    render json: @account
+    
+    # @item = Item.find(params["id"])
+    # @account = Account.find(@item.account_id)
+    # if @account.update_balance_on_delete(@item)
+    #   @item.destroy
+    #   render json: @account
+    # else
+    #   render json: @item.errors, status: :unprocessable_entity
+    # end
     # it matters that it's an instance variable, video at approx. 34:20
   end
 
@@ -54,6 +59,7 @@ class Api::V1::ItemsController < ApplicationController
 
   def set_account
     @account = Account.find(params[:account_id])
+    # @item = Item.find(params[:id])
   end
 
   # Use callbacks to share common setup or constraints between actions.
