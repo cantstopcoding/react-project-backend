@@ -1,5 +1,3 @@
 class ItemSerializer < ActiveModel::Serializer
-  attributes :id, :name, :image_url, :price, :description
-
-  has_many :transactions
+  attributes :id, :amount, :kind, :date, :description, :account_id
 end
