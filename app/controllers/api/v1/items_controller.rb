@@ -15,16 +15,15 @@ class Api::V1::ItemsController < ApplicationController
   end
 
   # POST /items
-  def create 
+  def create
+    # binding.pry
     @item = @account.items.new(item_params)
-    
-    if @account.update_balance(@item) != 'Balance too low.' 
-      @item.save
+    if @item.save
       render json: @account
       # render json: @item, status: :created, location: @item
     else
       # render json: @item.errors, status: :unprocessable_entity
-      render json: {error: 'Balance too low.'} #=> in video
+      render json: { error: "Balance too low." } #=> in video
     end
   end
 
@@ -39,8 +38,8 @@ class Api::V1::ItemsController < ApplicationController
 
   # DELETE /items/1
   def destroy
-    # binding.pry 
-    @item = Item.find(params['id'])
+    # binding.pry
+    @item = Item.find(params["id"])
     @account = Account.find(@item.account_id)
     if @account.update_balance_on_delete(@item)
       @item.destroy
@@ -52,18 +51,18 @@ class Api::V1::ItemsController < ApplicationController
   end
 
   private
-    
+
   def set_account
     @account = Account.find(params[:account_id])
   end
 
-    # Use callbacks to share common setup or constraints between actions.
-    # def set_item
-    #   @item = item.find(params[:id])
-    # end
+  # Use callbacks to share common setup or constraints between actions.
+  # def set_item
+  #   @item = item.find(params[:id])
+  # end
 
-    # Only allow a trusted parameter "white list" through.
-    def item_params
-      params.require(:item).permit(:account_id, :amount, :kind, :date, :description)
-    end
+  # Only allow a trusted parameter "white list" through.
+  def item_params
+    params.require(:item).permit(:account_id, :name, :image_url, :description, :price)
+  end
 end
