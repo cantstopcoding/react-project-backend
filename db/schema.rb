@@ -21,10 +21,11 @@ ActiveRecord::Schema.define(version: 2021_02_21_012630) do
 
   create_table "items", force: :cascade do |t|
     t.integer "account_id", null: false
-    t.float "amount"
-    t.string "kind"
-    t.datetime "date"
+    t.string "name"
+    t.string "image_url"
     t.string "description"
+    t.float "price"
+    t.datetime "date"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["account_id"], name: "index_items_on_account_id"
