@@ -1,10 +1,10 @@
 class Api::V1::ItemsController < ApplicationController
-  before_action :set_account
+  before_action :set_admin
   # before_action :set_item, only: [:show, :update, :destroy]
 
   # GET /items
   def index
-    @items = @account.items
+    @items = @admin.items
 
     render json: @items
   end
@@ -18,9 +18,9 @@ class Api::V1::ItemsController < ApplicationController
   # POST /items
   def create
     # binding.pry
-    @item = @account.items.new(item_params)
+    @item = @admin.items.new(item_params)
     if @item.save
-      render json: @account
+      render json: @admin
       # render json: @item, status: :created, location: @item
     else
       # render json: @item.errors, status: :unprocessable_entity
@@ -43,14 +43,14 @@ class Api::V1::ItemsController < ApplicationController
     # binding.pry
     @item = Item.find(params['id'])
     @item.destroy
-    @account = Account.find(@item.account_id)
-    render json: @account
+    @admin = Admin.find(@item.admin_id)
+    render json: @admin
     
     # @item = Item.find(params["id"])
-    # @account = Account.find(@item.account_id)
-    # if @account.update_balance_on_delete(@item)
+    # @admin = Admin.find(@item.admin_id)
+    # if @admin.update_balance_on_delete(@item)
     #   @item.destroy
-    #   render json: @account
+    #   render json: @admin
     # else
     #   render json: @item.errors, status: :unprocessable_entity
     # end
@@ -59,8 +59,8 @@ class Api::V1::ItemsController < ApplicationController
 
   private
 
-  def set_account
-    @account = Account.find(params[:account_id])
+  def set_admin
+    @admin = Admin.find(params[:admin_id])
     # @item = Item.find(params[:id])
   end
 
@@ -71,6 +71,6 @@ class Api::V1::ItemsController < ApplicationController
 
   # Only allow a trusted parameter "white list" through.
   def item_params
-    params.require(:item).permit(:account_id, :name, :image_url, :description, :price)
+    params.require(:item).permit(:admin_id, :name, :image_url, :description, :price)
   end
 end
