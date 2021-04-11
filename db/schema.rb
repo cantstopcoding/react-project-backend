@@ -12,15 +12,18 @@
 
 ActiveRecord::Schema.define(version: 2021_02_21_012630) do
 
-  create_table "accounts", force: :cascade do |t|
-    t.string "name"
-    t.float "balance"
+  create_table "admins", force: :cascade do |t|
+    t.string "first_name"
+    t.string "last_name"
+    t.string "username"
+    t.string "email"
+    t.string "image_url"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "items", force: :cascade do |t|
-    t.integer "account_id", null: false
+    t.integer "admin_id", null: false
     t.string "name"
     t.string "image_url"
     t.string "description"
@@ -28,8 +31,8 @@ ActiveRecord::Schema.define(version: 2021_02_21_012630) do
     t.datetime "date"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["account_id"], name: "index_items_on_account_id"
+    t.index ["admin_id"], name: "index_items_on_admin_id"
   end
 
-  add_foreign_key "items", "accounts"
+  add_foreign_key "items", "admins"
 end
