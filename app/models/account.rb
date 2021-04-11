@@ -1,6 +1,6 @@
 class Account < ApplicationRecord
     has_many :items 
-    validates :name, :balance, presence: true
+    validates :first_name, :last_name, :username, :email, :image_url, presence: true
 
     # def update_balance(item)
     #     if item.kind == 'deposit'

@@ -1,4 +1,4 @@
 class AccountSerializer < ActiveModel::Serializer
-  attributes :id, :name, :balance
+  attributes :id, :first_name, :last_name, :username, :email, :image_url
   has_many :items
 end
