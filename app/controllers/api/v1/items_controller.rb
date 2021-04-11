@@ -11,6 +11,7 @@ class Api::V1::ItemsController < ApplicationController
 
   # GET /items/1
   def show
+    @item = Item.find(params['id'])
     render json: @item
   end
 
@@ -29,6 +30,7 @@ class Api::V1::ItemsController < ApplicationController
 
   # PATCH/PUT /items/1
   def update
+    binding.pry 
     if @item.update(item_params)
       render json: @item
     else
