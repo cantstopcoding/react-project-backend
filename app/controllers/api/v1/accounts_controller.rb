@@ -30,9 +30,14 @@ class Api::V1::AccountsController < ApplicationController
 
   # PATCH/PUT /accounts/1
   def update
-    @account.update(name: params['account']['name'])
-    @account.save
-    render json: @account
+    # binding.pry
+
+    if @account.update(account_params)
+      @account.save
+      render json: @account
+    else
+      render json: @account.errors, status: :unprocessable_entity
+    end
     # if @account.update(account_params)
     #   render json: @account
     # else
@@ -47,13 +52,14 @@ class Api::V1::AccountsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_account
-      @account = Account.find(params[:id])
-    end
 
-    # Only allow a trusted parameter "white list" through.
-    def account_params
-      params.require(:account).permit(:first_name, :last_name, :username, :email, :image_url, presence: true)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_account
+    @account = Account.find(params[:id])
+  end
+
+  # Only allow a trusted parameter "white list" through.
+  def account_params
+    params.require(:account).permit(:id, :first_name, :last_name, :username, :email, :image_url, presence: true)
+  end
 end
