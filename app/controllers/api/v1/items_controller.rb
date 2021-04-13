@@ -30,7 +30,6 @@ class Api::V1::ItemsController < ApplicationController
 
   # PATCH/PUT /items/1
   def update
-    binding.pry 
     if @item.update(item_params)
       render json: @item
     else

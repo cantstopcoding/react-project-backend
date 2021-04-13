@@ -13,8 +13,11 @@
 ActiveRecord::Schema.define(version: 2021_02_21_012630) do
 
   create_table "accounts", force: :cascade do |t|
-    t.string "name"
-    t.float "balance"
+    t.string "first_name"
+    t.string "last_name"
+    t.string "username"
+    t.string "email"
+    t.string "image_url"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
