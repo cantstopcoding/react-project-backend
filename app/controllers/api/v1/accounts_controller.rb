@@ -23,7 +23,10 @@ class Api::V1::AccountsController < ApplicationController
       # , status: :created, location: @account
       # render json: @account => video code
     else
-      render json: @account.errors, status: :unprocessable_entity
+      error_response = {
+        error: @account.errors.full_messages.to_sentence,
+      }
+      render json: error_response, status: :unprocessable_entity
       # render json: {error: 'Error creating account'} video code
     end
   end
@@ -63,6 +66,6 @@ class Api::V1::AccountsController < ApplicationController
 
   # Only allow a trusted parameter "white list" through.
   def account_params
-    params.require(:account).permit(:id, :first_name, :last_name, :username, :email, :image_url, presence: true)
+    params.require(:account).permit(:id, :first_name, :last_name, :username, :email, :image_url)
   end
 end
