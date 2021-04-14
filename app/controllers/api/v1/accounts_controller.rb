@@ -36,7 +36,10 @@ class Api::V1::AccountsController < ApplicationController
       @account.save
       render json: @account
     else
-      render json: @account.errors, status: :unprocessable_entity
+      error_response = {
+        error: @account.errors.full_messages.to_sentence,
+      }
+      render json: error_response, status: :unprocessable_entity
     end
     # if @account.update(account_params)
     #   render json: @account
