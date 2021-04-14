@@ -11,7 +11,7 @@ class Api::V1::ItemsController < ApplicationController
 
   # GET /items/1
   def show
-    @item = Item.find(params['id'])
+    @item = Item.find(params["id"])
     render json: @item
   end
 
@@ -23,8 +23,10 @@ class Api::V1::ItemsController < ApplicationController
       render json: @account
       # render json: @item, status: :created, location: @item
     else
-      # render json: @item.errors, status: :unprocessable_entity
-      render json: { error: "Balance too low." } #=> in video
+      error_response = {
+        error: @item.errors.full_messages.to_sentence,
+      }
+      render json: error_response, status: :unprocessable_entity
     end
   end
 
@@ -40,11 +42,11 @@ class Api::V1::ItemsController < ApplicationController
   # DELETE /items/1
   def destroy
     # binding.pry
-    @item = Item.find(params['id'])
+    @item = Item.find(params["id"])
     @item.destroy
     @account = Account.find(@item.account_id)
     render json: @account
-    
+
     # @item = Item.find(params["id"])
     # @account = Account.find(@item.account_id)
     # if @account.update_balance_on_delete(@item)
