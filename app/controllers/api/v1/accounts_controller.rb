@@ -53,8 +53,9 @@ class Api::V1::AccountsController < ApplicationController
 
   # DELETE /accounts/1
   def destroy
-    # @account = Account.find(params[:id]) => video include this code
     @account.destroy
+    @accounts = Account.all
+    render json: @accounts
   end
 
   private
