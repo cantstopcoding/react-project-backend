@@ -32,10 +32,14 @@ class Api::V1::ItemsController < ApplicationController
 
   # PATCH/PUT /items/1
   def update
+    @item = Item.find(params["id"])
     if @item.update(item_params)
-      render json: @item
+      render json: @account
     else
-      render json: @item.errors, status: :unprocessable_entity
+      error_response = {
+        error: @item.errors.full_messages.to_sentence,
+      }
+      render json: error_response, status: :unprocessable_entity
     end
   end
 
@@ -72,6 +76,6 @@ class Api::V1::ItemsController < ApplicationController
 
   # Only allow a trusted parameter "white list" through.
   def item_params
-    params.require(:item).permit(:account_id, :name, :image_url, :description, :price)
+    params.require(:item).permit(:id, :account_id, :name, :image_url, :description, :price)
   end
 end
