@@ -32,10 +32,14 @@ class Api::V1::ItemsController < ApplicationController
 
   # PATCH/PUT /items/1
   def update
+    @item = Item.find(params["id"])
     if @item.update(item_params)
-      render json: @item
+      render json: @account
     else
-      render json: @item.errors, status: :unprocessable_entity
+      error_response = {
+        error: @item.errors.full_messages.to_sentence,
+      }
+      render json: error_response, status: :unprocessable_entity
     end
   end
 
