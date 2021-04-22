@@ -1,15 +1,13 @@
 class Api::V1::ItemsController < ApplicationController
   before_action :set_account
-  # before_action :set_item, only: [:show, :update, :destroy]
+  before_action :set_item, only: [:show, :update, :destroy]
 
   def index
     @items = @account.items
-
     render json: @items
   end
 
   def show
-    @item = Item.find(params["id"])
     render json: @item
   end
 
@@ -17,7 +15,6 @@ class Api::V1::ItemsController < ApplicationController
     @item = @account.items.new(item_params)
     if @item.save
       render json: @account
-      # render json: @item, status: :created, location: @item
     else
       error_response = {
         error: @item.errors.full_messages.to_sentence,
@@ -27,7 +24,6 @@ class Api::V1::ItemsController < ApplicationController
   end
 
   def update
-    @item = Item.find(params["id"])
     if @item.update(item_params)
       render json: @account
     else
@@ -39,7 +35,6 @@ class Api::V1::ItemsController < ApplicationController
   end
 
   def destroy
-    @item = Item.find(params["id"])
     @item.destroy
     @account = Account.find(@item.account_id)
     render json: @account
@@ -49,6 +44,10 @@ class Api::V1::ItemsController < ApplicationController
 
   def set_account
     @account = Account.find(params[:account_id])
+  end
+
+  def set_item
+    @item = Item.find(params["id"])
   end
 
   def item_params
