@@ -1,3 +1,5 @@
+To see the project demo, go to https://www.youtube.com/watch?v=LddjDNlHjKE
+
 To use this app, go to https://github.com/cantstopcoding/react-project-caroline-dambrosio-designs-backend and fork and clone the back-end to start up the server. Run the following commands inside the directory:
 
 $ bundle install
